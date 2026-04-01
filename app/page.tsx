@@ -1,19 +1,18 @@
 "use client";
 
-export default function Home() {
-  const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark");
-  };
+import TabBar from "./components/Navigation/TabBar";
+import Scanner from "./components/Scanner/Scanner";
+import Theme from "./components/Theme/Theme";
+import UserMetrics from "./components/UserMetrics/UserMetrics";
 
+export default function Home() {
   return (
-    <div className="min-h-screen p-8">
-      <h1 className="text-2xl font-bold">Проверка темы</h1>
-      <button
-        onClick={toggleTheme}
-        className="mt-4 px-4 py-2 border rounded-md cursor-pointer hover:opacity-80"
-      >
-        Сменить тему
-      </button>
-    </div>
+    <main className="min-h-screen p-4 flex flex-col gap-6">
+      {/* не работает на телефоне надо фиксить */}
+      {/* <Theme /> */}
+      <UserMetrics />
+      <Scanner />
+      <TabBar />
+    </main>
   );
 }
