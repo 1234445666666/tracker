@@ -1,9 +1,9 @@
 "use client";
 
-import TabBar from "./components/Navigation/TabBar";
-import Scanner from "./components/Scanner/Scanner";
-import Theme from "./components/Theme/Theme";
-import UserMetrics from "./components/UserMetrics/UserMetrics";
+import TabBar from "../components/Navigation/TabBar";
+import Scanner from "../components/Scanner/Scanner";
+import Theme from "../components/Theme/Theme";
+import UserMetrics from "../components/UserMetrics/UserMetrics";
 
 export default function Home() {
   return (
