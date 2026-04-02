@@ -1,0 +1,134 @@
+.form {
+  max-width: 448px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e4e4e7;
+  transition: all 0.3s;
+}
+
+/* Темная тема */
+:global(.dark) .form {
+  background-color: #18181b;
+  border-color: #27272a;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: #18181b;
+}
+
+:global(.dark) .title {
+  color: #ffffff;
+}
+
+.formContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #71717a;
+}
+
+:global(.dark) .label {
+  color: #a1a1aa;
+}
+
+.input,
+.select {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border-radius: 8px;
+  border: 1px solid #e4e4e7;
+  background-color: #ffffff;
+  color: #18181b;
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+:global(.dark) .input,
+:global(.dark) .select {
+  background-color: #27272a;
+  border-color: #3f3f46;
+  color: #f4f4f5;
+}
+
+.input:focus,
+.select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.button {
+  width: 100%;
+  margin-top: 16px;
+  height: 48px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  border-radius: 12px;
+  border: none;
+  transition: all 0.2s;
+  box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.2);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* Мобильные устройства */
+@media (max-width: 640px) {
+  .form {
+    margin: 16px;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .grid {
+    gap: 12px;
+  }
+
+  .input,
+  .select {
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .button {
+    height: 44px;
+  }
+}

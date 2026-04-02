@@ -1,24 +1,20 @@
-import "toastify-js/src/toastify.css";
 import Toastify from "toastify-js";
+import "toastify-js/src/toastify.css";
 import UserForm from "./UserForm";
 
 export default function UserMetrics() {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
-    console.log(data);
-  };
-
-  const handleSave = () => {
+  const showToast = (message: string, isError: boolean = false) => {
     Toastify({
-      text: `Данные сохранены!`,
+      text: message,
       duration: 3000,
       gravity: "top",
       position: "center",
       stopOnFocus: true,
+      className: "custom-toast",
       style: {
-        background: "linear-gradient(to right, #2563eb, #3b82f6)",
+        background: isError
+          ? "linear-gradient(to right, #dc2626, #ef4444)"
+          : "linear-gradient(to right, #2563eb, #3b82f6)",
         borderRadius: "12px",
         fontSize: "14px",
         fontWeight: "500",
@@ -26,5 +22,23 @@ export default function UserMetrics() {
       },
     }).showToast();
   };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = Object.fromEntries(formData.entries());
+    console.log(data);
+
+    if (!data.age || !data.height || !data.weight) {
+      showToast("Заполните все поля!", true);
+      return;
+    }
+    handleSave();
+  };
+
+  const handleSave = () => {
+    showToast("Данные сохранены!", false);
+  };
+
   return <UserForm handleSave={handleSave} handleSubmit={handleSubmit} />;
 }
