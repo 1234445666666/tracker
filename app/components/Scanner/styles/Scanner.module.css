@@ -1,0 +1,254 @@
+/* МОБИЛЬНЫЕ СТИЛИ (базовые, для экранов до 640px) */
+.container {
+  max-width: 448px;
+  margin: 0 auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e4e4e7;
+}
+
+:global(.dark) .card {
+  background-color: #18181b;
+  border-color: #27272a;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+  color: #18181b;
+}
+
+:global(.dark) .title {
+  color: #ffffff;
+}
+
+.reader {
+  overflow: hidden;
+  border-radius: 12px;
+  background-color: #f4f4f5;
+  min-height: 300px;
+}
+
+:global(.dark) .reader {
+  background-color: #27272a;
+}
+
+.readerVisible {
+  display: block;
+}
+
+.readerHidden {
+  display: none;
+}
+
+.buttonGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cameraButton {
+  width: 100%;
+  padding: 16px;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cameraButton:active {
+  transform: scale(0.98);
+}
+
+.uploadLabel {
+  width: 100%;
+  padding: 16px;
+  background-color: #f4f4f5;
+  text-align: center;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+  color: #18181b;
+}
+
+:global(.dark) .uploadLabel {
+  background-color: #27272a;
+  color: #f4f4f5;
+}
+
+.uploadLabel:active {
+  transform: scale(0.98);
+}
+
+.hiddenInput {
+  display: none;
+}
+
+.cancelButton {
+  width: 100%;
+  margin-top: 16px;
+  padding: 8px;
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cancelButton:active {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+.resultCard {
+  background-color: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.resultLabel {
+  color: #16a34a;
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.resultText {
+  word-break: break-all;
+  color: #22c55e;
+  font-size: 14px;
+}
+
+:global(.dark) .resultText {
+  color: #4ade80;
+}
+
+.previewCard {
+  background-color: #ffffff;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid #e4e4e7;
+}
+
+:global(.dark) .previewCard {
+  background-color: #18181b;
+  border-color: #27272a;
+}
+
+.previewLabel {
+  font-size: 12px;
+  color: #71717a;
+  margin-bottom: 8px;
+}
+
+.previewImage {
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  max-height: 300px;
+}
+
+/* ПЛАНШЕТЫ (641px - 768px) */
+@media (min-width: 641px) {
+  .container {
+    max-width: 600px;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+
+  .reader {
+    min-height: 400px;
+  }
+
+  .cameraButton,
+  .uploadLabel {
+    padding: 18px;
+    font-size: 18px;
+  }
+
+  .resultText {
+    font-size: 15px;
+  }
+}
+
+/* НОУТБУКИ И ПК (769px - 1024px) */
+@media (min-width: 769px) {
+  .container {
+    max-width: 800px;
+  }
+
+  .cameraButton:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-1px);
+  }
+
+  .cameraButton:active {
+    transform: scale(0.98);
+  }
+
+  .uploadLabel:hover {
+    background-color: #e4e4e7;
+  }
+
+  :global(.dark) .uploadLabel:hover {
+    background-color: #3f3f46;
+  }
+
+  .cancelButton:hover {
+    background-color: rgba(239, 68, 68, 0.15);
+  }
+}
+
+/* БОЛЬШИЕ ЭКРАНЫ (1025px и выше) */
+@media (min-width: 1025px) {
+  .container {
+    max-width: 960px;
+    padding: 24px;
+    gap: 24px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .reader {
+    min-height: 480px;
+  }
+}

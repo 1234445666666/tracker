@@ -1,0 +1,176 @@
+/* МОБИЛЬНЫЕ СТИЛИ (базовые, для экранов до 640px) */
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 64px;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid #e4e4e7;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Темная тема */
+:global(.dark) .nav {
+  background-color: rgba(9, 9, 11, 0.8);
+  border-top-color: #27272a;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  height: 64px;
+  width: 100%;
+  max-width: 448px;
+  margin: 0 auto;
+}
+
+/* Обычные вкладки */
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: #71717a;
+  transition: color 0.2s ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:global(.dark) .tab {
+  color: #71717a;
+}
+
+.tab.active {
+  color: #2563eb;
+}
+
+:global(.dark) .tab.active {
+  color: #3b82f6;
+}
+
+.label {
+  font-size: 10px;
+  font-weight: 500;
+}
+
+/* Центральная кнопка сканера */
+.centerWrapper {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.scannerButton {
+  position: relative;
+  top: -16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background-color: #18181b;
+  color: #ffffff;
+  box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+  transition: transform 0.2s ease;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+:global(.dark) .scannerButton {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.scannerButton:active {
+  transform: scale(0.9);
+}
+
+/* ПЛАНШЕТЫ (641px - 768px) */
+@media (min-width: 641px) {
+  .nav {
+    height: 70px;
+  }
+
+  .container {
+    max-width: 600px;
+  }
+
+  .tab {
+    gap: 6px;
+  }
+
+  .label {
+    font-size: 11px;
+  }
+
+  .scannerButton {
+    width: 64px;
+    height: 64px;
+    top: -20px;
+  }
+
+  .scannerButton svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* НОУТБУКИ И ПК (769px - 1024px) */
+@media (min-width: 769px) {
+  .nav {
+    height: 72px;
+  }
+
+  .container {
+    max-width: 800px;
+  }
+
+  .tab:hover {
+    color: #3b82f6;
+  }
+
+  :global(.dark) .tab:hover {
+    color: #60a5fa;
+  }
+
+  .scannerButton {
+    width: 60px;
+    height: 60px;
+    top: -18px;
+  }
+
+  .scannerButton:hover {
+    transform: translateY(-2px);
+  }
+
+  .scannerButton:active {
+    transform: scale(0.95);
+  }
+}
+
+/* БОЛЬШИЕ ЭКРАНЫ (1025px и выше) */
+@media (min-width: 1025px) {
+  .nav {
+    height: 76px;
+  }
+
+  .container {
+    max-width: 960px;
+  }
+
+  .label {
+    font-size: 12px;
+  }
+
+  .scannerButton {
+    width: 68px;
+    height: 68px;
+    top: -22px;
+  }
+}
