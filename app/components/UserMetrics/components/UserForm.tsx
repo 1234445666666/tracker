@@ -1,11 +1,10 @@
-import styles from "./styles/UserForm.module.css";
+import styles from "../styles/UserForm.module.css";
 
 interface IUserFormProps {
-  handleSave: () => void;
   handleSubmit: (e: React.FormEvent) => void;
 }
 
-export default function UserForm({ handleSave, handleSubmit }: IUserFormProps) {
+export default function UserForm({ handleSubmit }: IUserFormProps) {
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
       <h1 className={styles.title}>Цель и параметры</h1>
