@@ -7,6 +7,20 @@ export const metadata: Metadata = {
   description: "Calorie Tracker App",
 };
 
+const themeScript = `
+  (function() {
+    try {
+      var stored = localStorage.getItem('theme-state');
+      if (stored) {
+        var parsed = JSON.parse(stored);
+        if (parsed.state && parsed.state.theme === 'dark') {
+          document.documentElement.classList.add('dark');
+        }
+      }
+    } catch(e) {}
+  })();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -15,6 +29,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
+        <head>
+          <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        </head>
         {children}
         <TabBar />
       </body>

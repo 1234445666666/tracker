@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import UserForm from "./components/UserForm";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 
 export default function UserMetrics() {
   const [calories, setCalories] = React.useState(0);
@@ -105,7 +105,14 @@ export default function UserMetrics() {
   };
 
   return (
-    <div style={{ maxWidth: "448px", margin: "0 auto", padding: "20px" }}>
+    <div
+      style={{
+        maxWidth: "448px",
+        margin: "0 auto",
+        padding: "20px",
+        marginBottom: "100px",
+      }}
+    >
       <UserForm handleSubmit={handleSubmit} />
 
       {open && (
@@ -157,7 +164,6 @@ export default function UserMetrics() {
             onClick={() => setOpen(false)}
             style={{
               marginTop: "25px",
-              maxWidth: "448px",
               padding: "8px 16px",
               border: "none",
               backgroundColor: "#f5f5f5",
