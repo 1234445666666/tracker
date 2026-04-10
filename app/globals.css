@@ -28,6 +28,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px 80px 16px;
+}
+
 .dark body {
   background-color: var(--background);
   color: var(--foreground);
@@ -36,28 +42,6 @@ body {
 .dark,
 .dark * {
   border-color: #27272a;
-}
-
-.custom-toast {
-  position: fixed !important;
-  top: 80px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  width: auto !important;
-  min-width: 200px !important;
-  max-width: 90vw !important;
-  white-space: normal !important;
-  word-break: break-word !important;
-  text-align: center !important;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  z-index: 99999 !important;
-  border-radius: 12px !important;
-  padding: 12px 20px !important;
-  font-size: 14px !important;
-  font-weight: 500 !important;
-  pointer-events: none !important;
-  backdrop-filter: blur(10px);
 }
 
 /* Планшеты */
