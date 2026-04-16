@@ -89,9 +89,9 @@
 }
 
 /* ПК (769px и выше) */
-@media (min-width: 769px) {
+@media (min-width: 408px) {
   .container {
-    max-width: 500px;
+    max-width: 408px;
     margin: 0 auto;
   }
 

@@ -1,16 +1,25 @@
 import styles from "./styles/MealForm.module.css";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 export default function MealForm() {
-  const [meals, setMeals] = useState([]);
+  interface Meal {
+    type: string;
+    name: string;
+    calories: string;
+  }
 
-  const handleSubmit = (event) => {
+  const [meals, setMeals] = useState<Meal[]>([]);
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const formData = new FormData(event.target);
-    const type = formData.get("type");
-    const name = formData.get("name");
-    const calories = formData.get("calories");
-    setMeals([...meals, { type, name, calories }]);
-    console.log(meals);
+    const formData = new FormData(event.target as HTMLFormElement);
+    const type = formData.get("type") as string;
+    const name = formData.get("name") as string;
+    const calories = formData.get("calories") as string;
+
+    const newMeal: Meal = { type, name, calories };
+    const addedMeals = [...meals, newMeal];
+    setMeals(addedMeals);
+    console.log("Новое блюдо:", newMeal);
+    console.log("Добавленные блюда:", addedMeals);
   };
   return (
     <div className={styles.container}>
@@ -24,11 +33,13 @@ export default function MealForm() {
           <option value="other">Другое</option>
         </select>
         <input
+          name="name"
           type="text"
           placeholder="Название блюда"
           className={styles.input}
         />
         <input
+          name="calories"
           type="number"
           placeholder="Количество калорий"
           className={styles.input}

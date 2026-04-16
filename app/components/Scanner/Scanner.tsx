@@ -16,7 +16,7 @@ export default function Scanner() {
     scannerRef.current = html5QrCode;
 
     await html5QrCode.start(
-      { facingMode: "environment" }, // Задняя камера
+      { facingMode: "environment" },
       {
         fps: 10,
         qrbox: { width: 250, height: 250 },
