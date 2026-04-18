@@ -9,6 +9,12 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@tanstack/react-devtools": "^0.10.2",
+    "@tanstack/react-form": "^1.29.0",
+    "@tanstack/react-form-devtools": "^0.2.21",
+    "@tanstack/react-form-nextjs": "^1.29.0",
+    "@tanstack/react-form-remix": "^1.29.0",
+    "@tanstack/react-form-start": "^1.29.0",
     "html5-qrcode": "^2.3.8",
     "lucide-react": "^1.7.0",
     "next": "14.2.5",

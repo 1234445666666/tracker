@@ -72,7 +72,7 @@ export default function UserForm({ handleSubmit }: IUserFormProps) {
         </div>
 
         <button type="submit" className={styles.button}>
-          Сохранить данные
+          Рассчитать
         </button>
       </div>
     </form>
