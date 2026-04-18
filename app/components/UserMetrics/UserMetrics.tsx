@@ -89,6 +89,7 @@ export default function UserMetrics() {
 
                 <input
                   className={styles.input}
+                  inputMode="numeric"
                   id={field.name}
                   name={field.name}
                   value={field.state.value}

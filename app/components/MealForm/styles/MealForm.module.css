@@ -89,10 +89,11 @@
 }
 
 /* ПК (769px и выше) */
-@media (min-width: 408px) {
+@media (min-width: 769px) {
   .container {
-    max-width: 408px;
+    max-width: 448px;
     margin: 0 auto;
+    margin-top: 2rem;
   }
 
   .button:hover {
