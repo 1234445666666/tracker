@@ -211,7 +211,7 @@ const MacroCard = ({
       {title}
     </div>
     <div style={{ fontSize: "20px", fontWeight: "bold", color: "#333" }}>
-      {value} г
+      {value}
     </div>
   </div>
 );
