@@ -1,11 +1,11 @@
 "use client";
-import Theme from "../components/Theme/Theme";
+import ModeToggle from "../components/Theme/ModeToggle";
 
 export default function page() {
   return (
     <div>
       <h1>Settings</h1>
-      <Theme />
+      <ModeToggle />
     </div>
   );
 }

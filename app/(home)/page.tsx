@@ -5,7 +5,7 @@ import UserMetrics from "../components/UserMetrics/UserMetrics";
 
 export default function Home() {
   return (
-    <main style={{ height: "100vh", overflow: "auto" }}>
+    <main style={{ minHeight: "100vh" }}>
       <UserMetrics />
       <MealForm />
     </main>
