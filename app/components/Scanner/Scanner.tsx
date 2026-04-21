@@ -1,11 +1,36 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
-// ==================== КОМПОНЕНТ СКАНЕРА ====================
+// ==================== ТИПЫ ====================
+interface IProduct {
+  name: string;
+  brand: string;
+  quantity: string;
+  image: string;
+  barcode: string;
+  calories: number;
+  proteins: number;
+  fats: number;
+  carbs: number;
+}
+
+interface IMealEntry {
+  id: number;
+  name: string;
+  grams: number;
+  calories: number;
+  proteins: number;
+  fats: number;
+  carbs: number;
+  barcode: string;
+  timestamp: string;
+}
+
+// ==================== КОМПОНЕНТ ====================
 export default function Scanner() {
-  const [product, setProduct] = useState<any>(null);
+  const [product, setProduct] = useState<IProduct | null>(null);
   const [loading, setLoading] = useState(false);
   const [isCameraOpen, setIsCameraOpen] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -18,18 +43,15 @@ export default function Scanner() {
     setProduct(null);
 
     try {
-      // Вариант 1: Через CORS прокси (работает 100%)
       const proxyUrl = "https://cors-anywhere.herokuapp.com/";
       const apiUrl = `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`;
 
-      // Пробуем через прокси
       let response = await fetch(proxyUrl + apiUrl, {
         headers: {
           "User-Agent": "MyCalorieTracker/1.0 (contact@example.com)",
         },
       });
 
-      // Если прокси не сработал, пробуем напрямую
       if (!response.ok) {
         response = await fetch(apiUrl, {
           headers: {
@@ -59,7 +81,7 @@ export default function Scanner() {
       } else {
         setError(`❌ Продукт с кодом ${barcode} не найден в базе`);
       }
-    } catch (err: any) {
+    } catch (err) {
       console.error("Ошибка:", err);
       setError("❌ Ошибка подключения к серверу. Проверьте интернет.");
     } finally {
@@ -72,7 +94,6 @@ export default function Scanner() {
     setError(null);
     setIsCameraOpen(true);
 
-    // Небольшая задержка для рендера DOM
     setTimeout(async () => {
       const html5QrCode = new Html5Qrcode("reader");
       scannerRef.current = html5QrCode;
@@ -86,14 +107,10 @@ export default function Scanner() {
             aspectRatio: 1.0,
           },
           (decodedText) => {
-            // Успешное сканирование
             fetchProductData(decodedText);
             stopCamera();
           },
-          (errorMessage) => {
-            // Игнорируем ошибки сканирования
-            // console.debug(errorMessage);
-          },
+          () => {},
         );
       } catch (err) {
         console.error("Ошибка камеры:", err);
@@ -143,7 +160,7 @@ export default function Scanner() {
     if (!product) return;
 
     const ratio = grams / 100;
-    const mealEntry = {
+    const mealEntry: IMealEntry = {
       id: Date.now(),
       name: product.name,
       grams: grams,
@@ -155,12 +172,57 @@ export default function Scanner() {
       timestamp: new Date().toISOString(),
     };
 
-    // Сохраняем в localStorage
-    const savedMeals = JSON.parse(localStorage.getItem("dailyMeals") || "[]");
+    const savedMeals: IMealEntry[] = JSON.parse(
+      localStorage.getItem("dailyMeals") || "[]",
+    );
     savedMeals.push(mealEntry);
     localStorage.setItem("dailyMeals", JSON.stringify(savedMeals));
 
     alert(`✅ ${grams}г "${product.name}" добавлено в дневник!`);
+  };
+
+  // Показать дневник
+  const showDiary = () => {
+    const meals: IMealEntry[] = JSON.parse(
+      localStorage.getItem("dailyMeals") || "[]",
+    );
+    if (meals.length === 0) {
+      alert("📭 Дневник пуст. Отсканируйте продукты!");
+    } else {
+      const totalCalories = meals.reduce(
+        (sum: number, m: IMealEntry) => sum + m.calories,
+        0,
+      );
+      const totalProteins = meals.reduce(
+        (sum: number, m: IMealEntry) => sum + m.proteins,
+        0,
+      );
+      const totalFats = meals.reduce(
+        (sum: number, m: IMealEntry) => sum + m.fats,
+        0,
+      );
+      const totalCarbs = meals.reduce(
+        (sum: number, m: IMealEntry) => sum + m.carbs,
+        0,
+      );
+
+      alert(
+        `📊 ДНЕВНИК ПИТАНИЯ\n\n` +
+          `📝 Записей: ${meals.length}\n` +
+          `🔥 Калории: ${totalCalories} ккал\n` +
+          `🥩 Белки: ${totalProteins} г\n` +
+          `🧈 Жиры: ${totalFats} г\n` +
+          `🍚 Углеводы: ${totalCarbs} г`,
+      );
+    }
+  };
+
+  // Очистить дневник
+  const clearDiary = () => {
+    if (confirm("🗑️ Удалить все записи из дневника?")) {
+      localStorage.removeItem("dailyMeals");
+      alert("✅ Дневник очищен!");
+    }
   };
 
   return (
@@ -169,10 +231,8 @@ export default function Scanner() {
         <h2 style={styles.title}>📷 Сканер продуктов</h2>
         <p style={styles.subtitle}>Наведите камеру на штрихкод</p>
 
-        {/* Скрытый ридер для файлов */}
         <div id="reader-hidden" style={{ display: "none" }}></div>
 
-        {/* Видимый ридер для камеры */}
         <div
           id="reader"
           style={{
@@ -181,7 +241,6 @@ export default function Scanner() {
           }}
         ></div>
 
-        {/* Кнопки управления */}
         {!isCameraOpen && (
           <div style={styles.controls}>
             <button onClick={startCamera} style={styles.btnPrimary}>
@@ -205,10 +264,8 @@ export default function Scanner() {
           </button>
         )}
 
-        {/* Ошибки */}
         {error && <div style={styles.error}>{error}</div>}
 
-        {/* Загрузка */}
         {loading && (
           <div style={styles.loader}>
             <div style={styles.spinner}></div>
@@ -216,7 +273,6 @@ export default function Scanner() {
           </div>
         )}
 
-        {/* Результат */}
         {product && (
           <div style={styles.result}>
             <div style={styles.productHeader}>
@@ -269,13 +325,10 @@ export default function Scanner() {
               />
               <button
                 onClick={() => {
-                  const grams = parseInt(
-                    (
-                      document.getElementById(
-                        "portionGrams",
-                      ) as HTMLInputElement
-                    ).value,
-                  );
+                  const input = document.getElementById(
+                    "portionGrams",
+                  ) as HTMLInputElement;
+                  const grams = parseInt(input.value);
                   addToDiary(grams);
                 }}
                 style={styles.btnAdd}
@@ -289,23 +342,14 @@ export default function Scanner() {
         )}
       </div>
 
-      {/* Кнопка просмотра дневника */}
-      <button
-        onClick={() => {
-          const meals = JSON.parse(localStorage.getItem("dailyMeals") || "[]");
-          if (meals.length === 0) {
-            alert("Дневник пуст. Отсканируйте продукты!");
-          } else {
-            const totalCalories = meals.reduce((sum, m) => sum + m.calories, 0);
-            alert(
-              `📊 В дневнике ${meals.length} записей\n🔥 Всего: ${totalCalories} ккал`,
-            );
-          }
-        }}
-        style={styles.btnDiary}
-      >
-        📊 Показать дневник
-      </button>
+      <div style={styles.diaryButtons}>
+        <button onClick={showDiary} style={styles.btnDiary}>
+          📊 Показать дневник
+        </button>
+        <button onClick={clearDiary} style={styles.btnClear}>
+          🗑️ Очистить дневник
+        </button>
+      </div>
     </div>
   );
 }
@@ -391,8 +435,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontWeight: 500,
   },
   btnDiary: {
-    width: "100%",
-    marginTop: "16px",
+    flex: 1,
     padding: "14px",
     backgroundColor: "#9C27B0",
     color: "white",
@@ -401,6 +444,22 @@ const styles: { [key: string]: React.CSSProperties } = {
     fontSize: "16px",
     cursor: "pointer",
     fontWeight: 500,
+  },
+  btnClear: {
+    flex: 1,
+    padding: "14px",
+    backgroundColor: "#f44336",
+    color: "white",
+    border: "none",
+    borderRadius: "12px",
+    fontSize: "16px",
+    cursor: "pointer",
+    fontWeight: 500,
+  },
+  diaryButtons: {
+    display: "flex",
+    gap: "12px",
+    marginTop: "16px",
   },
   error: {
     marginTop: "16px",
@@ -508,14 +567,14 @@ const styles: { [key: string]: React.CSSProperties } = {
   },
 };
 
-// Добавляем анимацию спиннера
+// Добавляем анимацию
 if (typeof document !== "undefined") {
-  const style = document.createElement("style");
-  style.textContent = `
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = `
     @keyframes spin {
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
   `;
-  document.head.appendChild(style);
+  document.head.appendChild(styleSheet);
 }
